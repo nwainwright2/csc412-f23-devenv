@@ -22,6 +22,9 @@ No need to run the command "`docker scan`" command at the end. Now start the con
 cd ..
 ./csc412-run-docker
 ```
+## Where do my projects live?
+
+In the `home` folder in this project directory. :)
 
 
 ## Acknowledgements
