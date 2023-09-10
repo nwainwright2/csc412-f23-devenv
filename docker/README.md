@@ -105,7 +105,7 @@ Explanation:
   laptop and are working on assignments that require an x86-64 Intel machine.
 * `-v LOCALDIR:LINUXDIR` says Docker should share a directory between your
   host and the Docker container. Here, I’ve asked for the host’s
-  `~/csc412-s22-devenv/home` directory to be mapped inside the container
+  `~/csc412-f23-devenv/home` directory to be mapped inside the container
   onto the `/home/csc412-user` directory, which is the virtual machine
   user’s home directory.
 * `csc412:latest` names the Docker image to run (namely, the one you built).
@@ -115,7 +115,7 @@ Here’s an example session:
 ```shellsession
 $ docker run -it --platform linux/amd64 --rm -v ~/csc412-s22-devenv/home:/home/csc412-user csc412:latest
 csc412-user@a15e6c4c8dbe:~$ ls
-csc412-f23-projects
+csc412-f23-assignments
 csc412-user@a15e6c4c8dbe:~$ echo "Hello, world"
 Hello, world
 csc412-user@a15e6c4c8dbe:~$ csc412-docker-version
