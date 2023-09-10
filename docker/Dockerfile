@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:22.04
 
 # set environment variables for tzdata
 ARG TZ=America/New_York
