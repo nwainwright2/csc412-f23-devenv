@@ -168,3 +168,9 @@ elif has_container; then
 else
     start_new_container
 fi
+
+# create file and append run date
+filename="docker_build"
+now=$(date)
+touch $filename
+echo "$now" >> $filename

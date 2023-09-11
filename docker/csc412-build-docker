@@ -41,3 +41,9 @@ if test $platform = linux/arm64; then
 else
     exec docker build -t "$tag" -f Dockerfile --platform linux/amd64 .
 fi
+
+# create file and append build date
+filename="docker_build"
+now=$(date)
+touch $filename
+echo "$now" >> $filename
