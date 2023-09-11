@@ -1,5 +1,15 @@
 #! /bin/bash
 
+exiting () {
+    # create file and append run date
+    filename="docker_run"
+    now=$(date)
+    touch $filename
+    echo "$now $1" >> $filename
+    exit 1
+}
+
+
 maindir=""
 destdir=csc412
 container_name=csc412-container
@@ -23,7 +33,7 @@ while test "$#" -ne 0; do
             shift
         else
             echo "\`csc412-run-docker --arm\` only works on ARM64 hosts" 1>&2
-            exit 1
+            exiting "only works on ARM64 hosts"
         fi
     elif test "$1" = "-x" -o "$1" = "--x86-64" -o "$1" = "--x86_64" -o "$1" = "--amd64"; then
         platform=linux/amd64
@@ -33,7 +43,7 @@ while test "$#" -ne 0; do
             armtext=" [-a|--arm] [-x|--x86-64]"
         fi
         echo "Usage: csc412-run-docker [-C|--clean]$armtext [-V|--verbose]" 1>&2
-        exit 1
+        exiting "Incorrect Usage: csc412-run-docker"
     fi
 done
 
@@ -75,8 +85,10 @@ remove_containers() {
 
 start_container() {
     echo "Entering container..."
+    exiting entering_container
     docker start $container_name
     docker exec -it $container_name /bin/bash
+    exiting exiting_container
 }
 
 start_new_container() {
@@ -156,7 +168,7 @@ fi
 
 if test -z "$maindir"; then
     echo "Error: could not determine your directory."
-    exit 1
+    exiting "Error: could not determine your directory."
 fi
 
 has_network || create_network
@@ -169,8 +181,4 @@ else
     start_new_container
 fi
 
-# create file and append run date
-filename="docker_build"
-now=$(date)
-touch $filename
-echo "$now" >> $filename
+exiting "end of file..."

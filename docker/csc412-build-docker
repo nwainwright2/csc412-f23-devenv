@@ -1,5 +1,14 @@
 #! /bin/bash
 
+exiting () {
+    # create file and append build date
+    filename="docker_build"
+    now=$(date)
+    touch $filename
+    echo "$now $1" >> $filename
+    exit 1
+}
+
 cd `dirname $0`
 
 arch="`uname -m`"
@@ -12,7 +21,7 @@ while test "$#" -ne 0; do
             shift
         else
             echo "\`csc412-build-docker --arm\` only works on ARM64 hosts" 1>&2
-            exit 1
+            exiting "only works on ARM64 hosts"
         fi
     elif test "$1" = "-x" -o "$1" = "--x86-64" -o "$1" = "--x86_64" -o "$1" = "--amd64"; then
         platform=linux/amd64
@@ -22,7 +31,7 @@ while test "$#" -ne 0; do
             armtext=" [-a|--arm] [-x|--x86-64]"
         fi
         echo "Usage: csc412-build-docker$armtext" 1>&2
-        exit 1
+        exiting "Incorrect Usage: csc412-build-docker"
     fi
 done
 if test -z "$platform" -a \( "$arch" = "arm64" -o "$arch" = "aarch64" \); then
@@ -42,8 +51,4 @@ else
     exec docker build -t "$tag" -f Dockerfile --platform linux/amd64 .
 fi
 
-# create file and append build date
-filename="docker_build"
-now=$(date)
-touch $filename
-echo "$now" >> $filename
+exiting "end of file..."
