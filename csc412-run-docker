@@ -6,7 +6,10 @@ exiting () {
     now=$(date)
     touch $filename
     echo "$now $1" >> $filename
-    exit 1
+    if [ $1 != "entering_container" ]; then
+        echo "exiting script..."
+        exit 1
+    fi
 }
 
 
