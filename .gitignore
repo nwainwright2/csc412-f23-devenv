@@ -3,3 +3,6 @@
 .gitconfig
 .bash_history
 home/
+docker_build
+docker_run
+new_image
