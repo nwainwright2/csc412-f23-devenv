@@ -6,7 +6,7 @@ minimal CSC 412 environment, including Linux, on a macOS or Windows
 computer, without the overhead of a full virtual machine like VMware
 Workstation, VMware Fusion, or VirtualBox.
 
-It should be possible to do *all* CSC 412 assignments in the CSC 412
+It should be possible to do *all* CSC 412 assignments and labs in the CSC 412
 Docker container.
 
 Advantages of Docker:
@@ -18,8 +18,8 @@ Advantages of Docker:
 
 Disadvantages of Docker:
 
-* Docker does not offer a graphical environment. You will need to run all CS
-  300 programs exclusively in the terminal.
+* Docker does not offer a graphical environment. You will need to run all CSC
+  412 programs exclusively in the terminal.
 * Docker technology is less user-friendly than virtual machines. You’ll have
   to type weird commands.
 * You won’t get the fun, different feeling of a graphical Linux desktop,
