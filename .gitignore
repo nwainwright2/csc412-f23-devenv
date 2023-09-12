@@ -6,3 +6,4 @@ home/
 docker_build
 docker_run
 new_image
+.DS_Store
