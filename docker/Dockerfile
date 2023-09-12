@@ -29,8 +29,6 @@ RUN apt-get -y install\
 # install clang-related packages
 RUN apt-get -y install\
  clang\
- clang-10-doc\
- lldb\
  clang-format
 
 # install programs used for system exploration
