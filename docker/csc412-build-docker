@@ -6,7 +6,10 @@ exiting () {
     now=$(date)
     touch $filename
     echo "$now $1" >> $filename
-    exit 1
+    if [ $1 != "attempting_building_image" ]; then
+        echo "exiting script..."
+        exit 1
+    fi
 }
 
 cd `dirname $0`
@@ -34,6 +37,7 @@ while test "$#" -ne 0; do
         exiting "Incorrect Usage: csc412-build-docker"
     fi
 done
+
 if test -z "$platform" -a \( "$arch" = "arm64" -o "$arch" = "aarch64" \); then
     platform=linux/arm64
 elif test -z "$platform"; then
@@ -44,11 +48,14 @@ if test -z "$tag" -a "$platform" = linux/arm64; then
 elif test -z "$tag"; then
     tag=csc412:latest
 fi
-
 if test $platform = linux/arm64; then
+    exiting "attempting_building_image"
     exec docker build -t "$tag" -f Dockerfile.arm64 --platform linux/arm64 .
+    exiting "docker build arm64"
 else
+    exiting "attempting_building_image"
     exec docker build -t "$tag" -f Dockerfile --platform linux/amd64 .
+    exiting "docker build linux"
 fi
 
 exiting "end of file..."
