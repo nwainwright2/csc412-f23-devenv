@@ -1,3 +1,5 @@
 #! /bin/bash
 
+echo "this is for use in Lab 1 only for now ;) "
+
 zip -r csc412_archive.zip . -x "*.vscode*" "*.vscode-server*" "*.git*" "*.DS_Store*" "*.ssh*" "*zip_for_gradescope*"
