@@ -1,4 +1,5 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
+# 22.04 is getting errors with 
 
 # set environment variables for tzdata
 ARG TZ=America/New_York
@@ -13,33 +14,35 @@ RUN apt-get update &&\
 COPY --chown=root:root sources.list /etc/apt/sources.list
 
 # include multiarch support
-RUN apt-get -y install binfmt-support
-RUN apt-get -y dpkg --add-architecture amd64
-RUN apt-get -y apt-get update
-RUN apt-get -y apt-get upgrade
+RUN apt-get -y update
+RUN apt-get -y upgrade
+RUN apt-get -y install binfmt-support && dpkg --add-architecture amd64
+
+# to install g++ on 22.04
+#RUN apt-get -y install manpages
+#RUN apt-get -y install manpages-dev
+
 
 # install GCC-related packages
-RUN apt-get -y install\
- binutils-doc\
- cpp-doc\
- gcc-doc\
- g++\
- gdb\
- gdb-doc\
- glibc-doc\
- libblas-dev\
- liblapack-dev\
- liblapack-doc\
- libstdc++-10-doc\
- make\
- make-doc
+RUN apt-get -y install binutils-doc
+RUN apt-get -y install cpp-doc
+RUN apt-get -y install gcc-doc
+RUN apt-get -y install g++
+RUN apt-get -y install gdb
+RUN apt-get -y install gdb-doc
+RUN apt-get -y install glibc-doc
+RUN apt-get -y install libblas-dev
+RUN apt-get -y install liblapack-dev
+RUN apt-get -y install liblapack-doc
+RUN apt-get -y install libstdc++-10-doc
+RUN apt-get -y install make
+RUN apt-get -y install make-doc
 
 # install clang-related packages
-RUN apt-get -y install\
- clang\
- clang-10-doc\
- lldb\
- clang-format
+RUN apt-get -y install clang
+RUN apt-get -y install clang-10-doc
+RUN apt-get -y install lldb
+RUN apt-get -y install clang-format
 
 # install programs used for system exploration
 RUN apt-get -y install\
@@ -91,8 +94,10 @@ RUN apt-get -y install\
  libubsan1:amd64\
  libreadline-dev:amd64\
  libblas-dev:amd64\
- liblapack-dev:amd64\
- qemu-user
+ liblapack-dev:amd64
+
+# qemu user not needed fall23
+# RUN apt-get -y install qemu-user
 
 # link x86-64 versions of common tools into /usr/x86_64-linux-gnu/bin
 RUN for i in addr2line c++filt cpp-9 g++-9 gcc-9 gcov-9 gcov-dump-9 gcov-tool-9 size strings; do \
